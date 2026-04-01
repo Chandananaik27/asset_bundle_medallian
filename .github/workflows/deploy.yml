@@ -44,8 +44,8 @@ jobs:
       #   run: databricks bundle run --target dev pipeline_job
 
       # 7️⃣ Run Pipeline (VISIBLE - SIMPLE FIX)
-      - name: Run Pipeline
+      - name: Run Pipeline (VISIBLE RUN)
         run: |
-             JOB_ID=$(databricks jobs list | grep "med_creditcard-dev-pipeline" | awk '{print $1}')
-             echo "Job ID: $JOB_ID"
-             databricks jobs run-now --job-id $JOB_ID
+             JOB_ID=$(databricks jobs list | grep "med_creditcard-dev-pipeline" | head -n 1 | awk '{print $1}')
+             echo "Using Job ID: $JOB_ID"
+             databricks jobs run-now $JOB_ID
