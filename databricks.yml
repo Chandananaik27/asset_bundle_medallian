@@ -1,0 +1,44 @@
+## Databricks Asset Bundle Configuration
+## ETL Pipeline: Credit Card Fraud Detection
+## Targets: Dev and Production environments
+ 
+bundle:
+  name: med_pipeline
+ 
+include:
+  - ./resources/pipeline_job.yml
+sync:
+  include:
+    - ./src**
+ 
+variables:
+  environment:
+    description: "Environment name"
+    default: "dev"
+ 
+  workspace_path:
+    description: "Workspace path for pipeline files"
+    default: "Shared/.bundle/med_pipeline"
+ 
+targets:
+  dev:
+    variables:
+      environment: "dev"
+      workspace_path: "Shared/.bundle/med_pipeline/dev"
+   
+    workspace:
+      host: "https://adb-7488500312027058.18.azuredatabricks.net"
+      profile: "DEFAULT"
+      root_path: "/Workspace/Users/${workspace.current_user.userName}/.bundle/med_pipeline/dev"
+ 
+  #prod:
+    #variables:
+      #environment: "prod"
+      #workspace_path: "Shared/.bundle/med_pipeline/prod"
+   
+    #workspace:
+      #host: "https://dbc-629d7ac5-f465.cloud.databricks.com"
+      #profile: "DEFAULT"
+      #root_path: "/Shared/.bundle/med_pipeline/prod/${workspace.current_user.userName}"
+ 
+ 
