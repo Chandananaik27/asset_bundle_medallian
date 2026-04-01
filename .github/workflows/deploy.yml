@@ -10,25 +10,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout code
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 2️⃣ Setup Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
+      # 3️⃣ Install Databricks CLI (NEW VERSION)
       - name: Install Databricks CLI
         run: |
           curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | bash
 
+      # 4️⃣ Configure Databricks (using secrets)
       - name: Configure Databricks
         run: |
           echo "DATABRICKS_HOST=${{ secrets.DATABRICKS_HOST }}" >> $GITHUB_ENV
           echo "DATABRICKS_TOKEN=${{ secrets.DATABRICKS_TOKEN }}" >> $GITHUB_ENV
 
+      # 5️⃣ Validate bundle
       - name: Validate Bundle
         run: databricks bundle validate
 
+      # 6️⃣ Deploy bundle
       - name: Deploy Med Pipeline
         run: databricks bundle deploy --target dev
+
+      # 7️⃣ Run pipeline (optional but recommended)
+      - name: Run Pipeline
+        run: databricks bundle run --target dev pipeline_job
