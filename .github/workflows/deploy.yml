@@ -39,6 +39,17 @@ jobs:
       - name: Deploy Med Pipeline
         run: databricks bundle deploy --target dev
 
-      # 7️⃣ Run pipeline
-      - name: Run Pipeline
-        run: databricks bundle run --target dev pipeline_job
+      # # 7️⃣ Run pipeline
+      # - name: Run Pipeline
+      #   run: databricks bundle run --target dev pipeline_job
+
+      # 7️⃣ Get Job ID (IMPORTANT)
+      - name: Get Job ID
+        run: |
+          JOB_ID=$(databricks jobs list | grep med_creditcard-dev-pipeline | awk '{print $1}')
+          echo "JOB_ID=$JOB_ID" >> $GITHUB_ENV
+
+      # 8️⃣ Run job (VISIBLE IN UI)
+      - name: Run Pipeline (VISIBLE RUN)
+        run: |
+          databricks jobs run-now --job-id $JOB_ID
