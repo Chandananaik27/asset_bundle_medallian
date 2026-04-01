@@ -28,7 +28,7 @@ jobs:
           echo "DATABRICKS_TOKEN=${{ secrets.DATABRICKS_TOKEN }}" >> $GITHUB_ENV
 
       - name: Validate Bundle
-        run: databricks bundle validate -p adb-7488500312027058
+        run: databricks bundle validate
 
       - name: Deploy Med Pipeline
-        run: databricks bundle deploy -p adb-7488500312027058 --target dev
+        run: databricks bundle deploy --target dev
