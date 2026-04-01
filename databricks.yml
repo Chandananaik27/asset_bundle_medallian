@@ -29,7 +29,7 @@ targets:
     workspace:
       host: "https://adb-7488500312027058.18.azuredatabricks.net"
       # profile: "DEFAULT"
-      root_path: "/Workspace/Users/${workspace.current_user.userName}/.bundle/med_pipeline/dev"
+      root_path: "/Workspace/Shared/.bundle/med_pipeline/dev"
  
   #prod:
     #variables:
