@@ -39,13 +39,13 @@ jobs:
       - name: Deploy Med Pipeline
         run: databricks bundle deploy --target dev
 
-      # # 7️⃣ Run pipeline
-      # - name: Run Pipeline
-      #   run: databricks bundle run --target dev pipeline_job
+      # 7️⃣ Run pipeline (CORRECT WAY)
+      - name: Run Pipeline
+        run: databricks bundle run --target dev pipeline_job
 
-      # 7️⃣ Run Pipeline (VISIBLE - SIMPLE FIX)
-      - name: Run Pipeline (VISIBLE RUN)
-        run: |
-             JOB_ID=$(databricks jobs list | grep "med_creditcard-dev-pipeline" | head -n 1 | awk '{print $1}')
-             echo "Using Job ID: $JOB_ID"
-             databricks jobs run-now $JOB_ID
+      # # 7️⃣ Run Pipeline (VISIBLE - SIMPLE FIX)
+      # - name: Run Pipeline (VISIBLE RUN)
+      #   run: |
+      #        JOB_ID=$(databricks jobs list | grep "med_creditcard-dev-pipeline" | head -n 1 | awk '{print $1}')
+      #        echo "Using Job ID: $JOB_ID"
+      #        databricks jobs run-now $JOB_ID
