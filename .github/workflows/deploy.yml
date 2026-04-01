@@ -25,28 +25,20 @@ jobs:
         run: |
           curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | bash
 
-      # 4️⃣ Configure Databricks (FINAL FIX)
+      # 4️⃣ Configure Databricks (FINAL SAFE VERSION)
       - name: Configure Databricks
         run: |
-          export DATABRICKS_HOST="${{ secrets.DATABRICKS_HOST }}"
-          export DATABRICKS_TOKEN="${{ secrets.DATABRICKS_TOKEN }}"
+          echo DATABRICKS_HOST=${{ secrets.DATABRICKS_HOST }} >> $GITHUB_ENV
+          echo DATABRICKS_TOKEN=${{ secrets.DATABRICKS_TOKEN }} >> $GITHUB_ENV
 
-          echo "DATABRICKS_HOST=$DATABRICKS_HOST" >> $GITHUB_ENV
-          echo "DATABRICKS_TOKEN=$DATABRICKS_TOKEN" >> $GITHUB_ENV
-
-      # 5️⃣ Debug (to ensure env is set)
-      - name: Debug Env
-        run: |
-          echo "Databricks host is configured"
-
-      # 6️⃣ Validate bundle
+      # 5️⃣ Validate bundle
       - name: Validate Bundle
         run: databricks bundle validate
 
-      # 7️⃣ Deploy bundle
+      # 6️⃣ Deploy bundle
       - name: Deploy Med Pipeline
         run: databricks bundle deploy --target dev
 
-      # 8️⃣ Run pipeline
+      # 7️⃣ Run pipeline
       - name: Run Pipeline
         run: databricks bundle run --target dev pipeline_job
