@@ -43,13 +43,17 @@ jobs:
       # - name: Run Pipeline
       #   run: databricks bundle run --target dev pipeline_job
 
-      # 7️⃣ Get Job ID (IMPORTANT)
+      # 7️⃣ Install jq (for parsing JSON)
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      # 8️⃣ Get Job ID (SAFE & CLEAN)
       - name: Get Job ID
         run: |
-          JOB_ID=$(databricks jobs list | grep med_creditcard-dev-pipeline | awk '{print $1}')
+          JOB_ID=$(databricks jobs list --output json | jq -r '.jobs[] | select(.settings.name=="med_creditcard-dev-pipeline") | .job_id')
           echo "JOB_ID=$JOB_ID" >> $GITHUB_ENV
 
-      # 8️⃣ Run job (VISIBLE IN UI)
-      - name: Run Pipeline (VISIBLE RUN)
+      # 9️⃣ Run Pipeline (VISIBLE IN UI)
+      - name: Run Pipeline
         run: |
           databricks jobs run-now --job-id $JOB_ID
