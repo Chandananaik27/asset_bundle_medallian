@@ -28,8 +28,8 @@ jobs:
       # 4️⃣ Configure Databricks (using secrets)
       - name: Configure Databricks
         run: |
-          echo "DATABRICKS_HOST=${{ secrets.DATABRICKS_HOST }}" >> $GITHUB_ENV
-          echo "DATABRICKS_TOKEN=${{ secrets.DATABRICKS_TOKEN }}" >> $GITHUB_ENV
+              echo DATABRICKS_HOST=${{ secrets.DATABRICKS_HOST }} >> $GITHUB_ENV
+              echo DATABRICKS_TOKEN=${{ secrets.DATABRICKS_TOKEN }} >> $GITHUB_ENV
 
       # 5️⃣ Validate bundle
       - name: Validate Bundle
