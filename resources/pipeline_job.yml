@@ -1,7 +1,7 @@
 resources:
   jobs:
     pipeline_job:
-      name: "med_creditcard-${var.environment}-pipeline"
+      name: "med_asset_bundle_CICD-${var.environment}-pipeline"
       description: "Credit Card Fraud Detection Pipeline: Bronze → Silver → Gold"
  
       tasks:
