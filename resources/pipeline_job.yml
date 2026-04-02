@@ -2,8 +2,12 @@ resources:
   jobs:
     pipeline_job:
       name: "med_asset_bundle_CICD-${var.environment}-pipeline"
-      description: "Credit Card Fraud Detection Pipeline: Bronze → Silver → Gold"
- 
+      description: "Data Pipeline using Databricks Asset Bundles and CI/CD: Bronze → Silver → Gold"
+      
+      permissions:
+        - level: CAN_VIEW
+          group_name: users
+          
       tasks:
         # -------- BRONZE --------
         - task_key: bronze
